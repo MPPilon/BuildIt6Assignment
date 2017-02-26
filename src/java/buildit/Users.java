@@ -53,11 +53,48 @@ public class Users {
         }
     }
     
+    public String addUserToDb(String username, String password) {
+        try {
+            Connection conn = DBUtils.getConnection();
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("INSERT INTO users (id, username, passhash) VALUES (" 
+                    + nextUserId() + ", '" 
+                    + username + "', '" 
+                    + DBUtils.hash(password) + "')" ); //Add the user to the database
+            getUsersFromDb(); //Fetch the user list again
+            Login login = new Login();
+            login.setUsername(username);
+            login.setPassword(password);
+            return login.login(); //Log the new user in automatically
+        } catch (SQLException ex) {
+            Logger.getLogger(Posts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "index";
+    }
+    
     public String getUsernameById(int id) {
         for (User u : users) {
             if (u.getId() == id)
                 return u.getUsername();
         }
         return null;
+    }
+    
+    public int getIdByUsername(String username) {
+        for (User u : users) {
+            if (u.getUsername().equals(username))
+                return u.getId();
+        }
+        return -1;
+    }
+            
+    
+    private int nextUserId() {
+        int currentId = 0;
+        for (User u : users) {
+            if (u.getId() > currentId)
+                currentId = u.getId();
+        }
+        return currentId + 1; //Return the highest user ID plus one
     }
 }

@@ -10,14 +10,15 @@
         <h1>#{posts.currentPost.title}</h1>
         <p>
             By #{users.getUsernameById(posts.currentPost.user_id)} at
-            #{posts.currentPost.createdTime.toLocalString()}
+            #{posts.currentPost.createdTime.toLocaleString()}
         </p>
         <p>
             #{posts.currentPost.contents}
         </p>
         <h:form>
             <c:if test="#{login.loggedIn}">
-                <h:commandButton value="Edit" action="#{posts.editPost()}"
+                <h:commandButton value="Edit" action="#{posts.editPost(posts.currentPost)}" />
+                <h:commandButton value="Delete" action="#{posts.deletePost(posts.currentPost)}" />
             </c:if>
             <c:if test="#{!login.loggedIn}">
                 <h:button value="Login" outcome="login" />

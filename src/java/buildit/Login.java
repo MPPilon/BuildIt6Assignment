@@ -6,6 +6,11 @@
 package buildit;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -55,7 +60,7 @@ public class Login implements Serializable {
         String passhash = DBUtils.hash(password);
         for (User u : new Users().getUsers()) {
             if (username.equals(u.getUsername())
-                    && password.equals(u.getPasshash())) {
+                    && passhash.equals(u.getPasshash())) {
                 loggedIn = true;
                 return "index";
             }
@@ -63,4 +68,12 @@ public class Login implements Serializable {
         loggedIn = false;
         return "index";
     }
+    
+    public String logout() {
+        loggedIn = false;
+        username = null;
+        password = null;
+        return "index";
+    }
+    
 }

@@ -30,7 +30,7 @@ public class DBUtils {
         return DriverManager.getConnection(jdbc, username, password);
     }
     
-    public final static String SALT = "SaltISDELICIOUSonFOODandPASSWORDS";
+    public final static String SALT = "SaltHash";
     
     public static String hash(String password) {
         try {

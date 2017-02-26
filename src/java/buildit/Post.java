@@ -15,7 +15,7 @@ public class Post {
     private int id;
     private int user_id;
     private String title;
-    private Date created_time;
+    private Date createdTime;
     private String contents;
 
     public Post() {
@@ -25,7 +25,7 @@ public class Post {
         this.id = id;
         this.user_id = user_id;
         this.title = title;
-        this.created_time = createdAt;
+        this.createdTime = createdAt;
         this.contents = contents;
     }
 
@@ -53,12 +53,12 @@ public class Post {
         this.title = title;
     }
 
-    public Date getCreated_At() {
-        return created_time;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreated_At(Date created_At) {
-        this.created_time = created_At;
+    public void setCreatedTime(Date created_At) {
+        this.createdTime = created_At;
     }
 
     public String getContents() {
