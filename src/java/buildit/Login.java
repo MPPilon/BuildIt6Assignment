@@ -20,6 +20,12 @@ public class Login implements Serializable {
     private String username;
     private String password;
     private boolean loggedIn;
+    
+    public Login() {
+        username = null;
+        password = null;
+        loggedIn = false;
+    }
 
     public String getUsername() {
         return username;
@@ -37,7 +43,7 @@ public class Login implements Serializable {
         this.password = password;
     }
 
-    public boolean isLoggedIn() {
+    public boolean getLoggedIn() {
         return loggedIn;
     }
 
@@ -46,6 +52,7 @@ public class Login implements Serializable {
     }
 
     public String login() {
+        String passhash = DBUtils.hash(password);
         for (User u : new Users().getUsers()) {
             if (username.equals(u.getUsername())
                     && password.equals(u.getPasshash())) {
